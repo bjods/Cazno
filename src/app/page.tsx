@@ -12,17 +12,31 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0f0f0f]">
       <Header />
       <main>
         <Hero />
-        <CaseStudies />
-        <Solutions />
-        <Testimonials />
-        <Process />
-        <Features />
-        <FAQ />
-        <Stats />
+        <div className="bg-[#0f0f0f]">
+          <CaseStudies />
+        </div>
+        <div className="bg-[#141414]">
+          <Solutions />
+        </div>
+        <div className="bg-[#0f0f0f]">
+          <Testimonials />
+        </div>
+        <div className="bg-[#141414]">
+          <Process />
+        </div>
+        <div className="bg-[#0f0f0f]">
+          <Features />
+        </div>
+        <div className="bg-[#141414]">
+          <FAQ />
+        </div>
+        <div className="bg-[#0f0f0f]">
+          <Stats />
+        </div>
         <CTA />
       </main>
       <Footer />
