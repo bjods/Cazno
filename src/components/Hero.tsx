@@ -5,7 +5,20 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="pt-32 pb-20 px-6">
+    <section className="pt-32 pb-20 px-6 relative">
+      <div className="absolute top-8 left-6 z-10">
+        <Link href="/" className="text-2xl font-bold">
+          CAZNO
+        </Link>
+      </div>
+      <div className="absolute top-8 right-6 z-10">
+        <Link
+          href="/login"
+          className="text-sm hover:text-muted-foreground transition"
+        >
+          Sign In
+        </Link>
+      </div>
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
