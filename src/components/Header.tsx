@@ -53,7 +53,7 @@ export default function Header() {
               Sign In
             </Link>
             <Link
-              href="/contact"
+              href="/onboarding"
               className="hidden md:block bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition"
             >
               Get Started →
@@ -87,7 +87,7 @@ export default function Header() {
                 Sign In
               </Link>
               <Link
-                href="/contact"
+                href="/onboarding"
                 className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition text-center"
               >
                 Get Started →

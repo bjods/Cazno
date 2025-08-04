@@ -43,10 +43,10 @@ export default function Hero() {
           </p>
 
           <Link
-            href="/contact"
+            href="/onboarding"
             className="bg-primary text-primary-foreground px-8 py-4 rounded-full text-lg hover:bg-primary/90 transition inline-block"
           >
-            Free Consultation
+            Get Started
           </Link>
         </motion.div>
       </div>
