@@ -9,7 +9,7 @@ import {
   SiHubspot,
   SiNotion,
   SiAirtable,
-  SiMicrosoft,
+  SiDropbox,
   SiGmail,
 } from "react-icons/si";
 
@@ -20,7 +20,7 @@ const logos = [
   { icon: SiHubspot, delay: 7.5, duration: 19 },
   { icon: SiNotion, delay: 10, duration: 21 },
   { icon: SiAirtable, delay: 12.5, duration: 17 },
-  { icon: SiMicrosoft, delay: 15, duration: 20 },
+  { icon: SiDropbox, delay: 15, duration: 20 },
   { icon: SiGmail, delay: 17.5, duration: 23 },
 ];
 
