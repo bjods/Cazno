@@ -11,13 +11,20 @@ import {
   SiAirtable,
 } from "react-icons/si";
 
+const hexToRgb = (hex: string) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result 
+    ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+    : "255, 255, 255";
+};
+
 const logos = [
-  { icon: SiSlack, color: "#4A154B", position: 0 },
-  { icon: SiZapier, color: "#FF4A00", position: 0.2 },
-  { icon: SiGooglesheets, color: "#0F9D58", position: 0.4 },
-  { icon: SiAirtable, color: "#18BFFF", position: 0.6 },
-  { icon: SiHubspot, color: "#FF7A59", position: 0.8 },
-  { icon: SiNotion, color: "#000000", position: 1 },
+  { icon: SiSlack, color: "#4A154B", x: "15%", y: "20%", size: 48, opacity: 0.8, blur: "12px" },
+  { icon: SiZapier, color: "#FF4A00", x: "85%", y: "25%", size: 40, opacity: 0.6, blur: "8px" },
+  { icon: SiGooglesheets, color: "#0F9D58", x: "75%", y: "60%", size: 52, opacity: 0.9, blur: "16px" },
+  { icon: SiAirtable, color: "#18BFFF", x: "25%", y: "70%", size: 36, opacity: 0.5, blur: "6px" },
+  { icon: SiHubspot, color: "#FF7A59", x: "65%", y: "35%", size: 44, opacity: 0.7, blur: "10px" },
+  { icon: SiNotion, color: "#000000", x: "35%", y: "45%", size: 32, opacity: 0.4, blur: "4px" },
 ];
 
 export default function Hero() {
@@ -40,90 +47,38 @@ export default function Hero() {
       {/* Wrapping workflow path - hidden on mobile */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
         <div className="relative w-full h-full max-w-7xl mx-auto">
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 1400 600"
-            preserveAspectRatio="xMidYMid meet"
-            className="absolute inset-0"
-          >
-            <defs>
-              {/* Gradient for the path */}
-              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ef4444" />
-                <stop offset="100%" stopColor="#f97316" />
-              </linearGradient>
-              
-              {/* Glow filter */}
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            
-            {/* Wrapping path */}
-            <path
-              id="wrapPath"
-              d="M 140 90 
-                 C 140 200, 140 300, 200 400
-                 Q 700 500, 1200 400
-                 C 1260 300, 1260 200, 1260 90"
-              stroke="url(#pathGradient)"
-              strokeWidth="3"
-              fill="none"
-              filter="url(#glow)"
-              opacity="0.8"
-            />
-          </svg>
           
-          {/* Positioned logos */}
+          {/* Scattered logos */}
           {logos.map((logo, index) => {
             const Icon = logo.icon;
-            const positions = [
-              { x: "10%", y: "15%" },    // Top left
-              { x: "8%", y: "40%" },     // Left side
-              { x: "20%", y: "65%" },    // Bottom left
-              { x: "80%", y: "65%" },    // Bottom right
-              { x: "92%", y: "40%" },    // Right side
-              { x: "90%", y: "15%" },    // Top right
-            ];
-            const pos = positions[index];
+            const containerSize = Math.max(logo.size + 16, 64); // Container slightly bigger than icon
             
             return (
-              <motion.div
+              <div
                 key={index}
-                className="absolute w-24 h-24 flex items-center justify-center pointer-events-auto"
-                style={{ left: pos.x, top: pos.y, transform: "translate(-50%, -50%)" }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1,
-                  y: [0, -10, 0],
-                }}
-                transition={{ 
-                  opacity: { delay: index * 0.1, duration: 0.5 },
-                  scale: { delay: index * 0.1, duration: 0.5 },
-                  y: { delay: index * 0.1 + 0.5, duration: 3, repeat: Infinity, repeatType: "reverse" }
+                className="absolute flex items-center justify-center pointer-events-auto"
+                style={{ 
+                  left: logo.x, 
+                  top: logo.y, 
+                  transform: "translate(-50%, -50%)",
+                  width: `${containerSize}px`,
+                  height: `${containerSize}px`,
                 }}
               >
-                <motion.div
+                <div
                   className="w-full h-full flex items-center justify-center rounded-2xl"
                   style={{
                     background: "rgba(255, 255, 255, 0.02)",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
+                    backdropFilter: `blur(${logo.blur})`,
+                    WebkitBackdropFilter: `blur(${logo.blur})`,
                     border: "1px solid rgba(255, 255, 255, 0.08)",
+                    opacity: logo.opacity,
+                    boxShadow: `0 0 20px rgba(${logo.color === "#000000" ? "255, 255, 255" : hexToRgb(logo.color)}, 0.1)`,
                   }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <Icon size={56} style={{ color: logo.color }} />
-                </motion.div>
-              </motion.div>
+                  <Icon size={logo.size} style={{ color: logo.color, opacity: logo.opacity }} />
+                </div>
+              </div>
             );
           })}
         </div>
