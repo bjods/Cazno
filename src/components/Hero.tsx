@@ -14,57 +14,15 @@ import {
 } from "react-icons/si";
 
 const logos = [
-  { icon: SiSlack, delay: 0, duration: 20 },
-  { icon: SiZapier, delay: 2.5, duration: 18 },
-  { icon: SiGooglesheets, delay: 5, duration: 22 },
-  { icon: SiHubspot, delay: 7.5, duration: 19 },
-  { icon: SiNotion, delay: 10, duration: 21 },
-  { icon: SiAirtable, delay: 12.5, duration: 17 },
-  { icon: SiDropbox, delay: 15, duration: 20 },
-  { icon: SiGmail, delay: 17.5, duration: 23 },
+  { icon: SiSlack, x: 150, y: 120 },
+  { icon: SiZapier, x: 300, y: 200 },
+  { icon: SiGooglesheets, x: 450, y: 180 },
+  { icon: SiNotion, x: 600, y: 240 },
+  { icon: SiHubspot, x: 750, y: 220 },
+  { icon: SiAirtable, x: 900, y: 280 },
+  { icon: SiDropbox, x: 1050, y: 260 },
+  { icon: SiGmail, x: 1200, y: 320 },
 ];
-
-const AnimatedLogo = ({ 
-  icon: Icon, 
-  delay, 
-  duration = 18 
-}: { 
-  icon: any; 
-  delay: number; 
-  duration?: number 
-}) => {
-  return (
-    <motion.div
-      initial={{ offsetDistance: "0%" }}
-      animate={{ offsetDistance: "100%" }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-      style={{
-        offsetPath: `path("M 100 100 Q 600 300 1100 500")`,
-        position: "absolute",
-      }}
-      className="w-12 h-12"
-    >
-      <motion.div
-        className="w-full h-full flex items-center justify-center rounded-xl"
-        style={{
-          background: "rgba(255, 255, 255, 0.05)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-        }}
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.2 }}
-      >
-        <Icon size={32} className="text-white opacity-70" />
-      </motion.div>
-    </motion.div>
-  );
-};
 
 export default function Hero() {
   return (
@@ -83,34 +41,54 @@ export default function Hero() {
         </Link>
       </div>
       
-      {/* Animated workflow path - hidden on mobile */}
+      {/* Static workflow path - hidden on mobile */}
       <div className="hidden md:block absolute inset-0 z-0">
         <svg
           width="100%"
           height="100%"
-          viewBox="0 0 1200 600"
+          viewBox="0 0 1350 400"
           preserveAspectRatio="xMidYMid slice"
           className="absolute inset-0"
         >
+          {/* Wavy connecting line */}
           <path
-            d="M 100 100 Q 600 300 1100 500"
-            stroke="currentColor"
-            strokeWidth="2"
+            d="M 150 120 Q 225 240, 300 200 T 450 180 Q 525 260, 600 240 T 750 220 Q 825 300, 900 280 T 1050 260 Q 1125 340, 1200 320"
+            stroke="rgba(255, 255, 255, 0.2)"
+            strokeWidth="3"
             fill="none"
-            className="text-gray-800 opacity-10"
           />
         </svg>
         
-        {/* Animated logos */}
+        {/* Static logos */}
         <div className="absolute inset-0">
-          {logos.map((logo, index) => (
-            <AnimatedLogo
-              key={index}
-              icon={logo.icon}
-              delay={logo.delay}
-              duration={logo.duration}
-            />
-          ))}
+          {logos.map((logo, index) => {
+            const Icon = logo.icon;
+            return (
+              <div
+                key={index}
+                className="absolute w-20 h-20 flex items-center justify-center"
+                style={{
+                  left: `${logo.x}px`,
+                  top: `${logo.y}px`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                <motion.div
+                  className="w-full h-full flex items-center justify-center rounded-2xl"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Icon size={62} className="text-white opacity-80" />
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
       
